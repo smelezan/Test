@@ -1,0 +1,45 @@
+version: '3.8'
+services:
+    
+    front:
+        environment: 
+            - REACT_APP_TASKADDRESS=test_tasks_1
+            - REACT_APP_TESTADDRESS=test_issues_1
+        build: 
+            context: ./front
+            dockerfile: Dockerfile
+        volumes:
+            - "./front:/app"
+        ports:
+            - "3000:3000"
+        depends_on:
+            - issues
+            - tasks
+        networks:
+            - mern-app
+        
+    issues:
+        build: 
+            context: ./issues
+            dockerfile: Dockerfile
+        volumes: 
+            - "./issues:/app"
+        ports:
+            - "4000:4000"
+        networks:
+            - mern-app
+
+    tasks:
+        build: 
+            context: ./tasks
+            dockerfile: Dockerfile
+        volumes: 
+            - "./tasks:/app"
+        ports:
+            - "5000:5000"       
+        networks:
+            - mern-app
+    
+networks:
+    mern-app:
+        driver: bridge

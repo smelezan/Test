@@ -2,6 +2,6 @@ FROM node
 
 WORKDIR /app
 COPY . .
-
+RUN npm install
 EXPOSE 3000
-CMD npm install && npm start
+CMD npm start
